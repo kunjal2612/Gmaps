@@ -11,11 +11,14 @@
 		var infoWindow;
 
 	function initMap() {
-						map = new google.maps.Map(document.getElementById('map'), {
-						zoom: 5,
-						center: {lat: 24.886, lng: -70.268},
-						mapTypeId: 'terrain'
-					});
+							map = new google.maps.Map(document.getElementById('map'), 
+						{
+							zoom: 5,
+							center: {lat: 41.294, lng: -85.605},
+							mapTypeId: 'terrain'
+
+						});
+						
 
  	var features = [
                      {
@@ -57,9 +60,9 @@
 
 			// Define the LatLng coordinates for the polygon.
 			var triangleCoords = [
-				{lat: 25.774, lng: -80.190},
-				{lat: 18.466, lng: -66.118},
-				{lat: 32.321, lng: -64.757}
+				{lat: 41.886, lng: -87.582},
+				{lat: 41.755, lng: -83.232},
+				{lat: 39.758, lng: -86.176}
 			];
 
 			// Construct the polygon.
@@ -84,7 +87,8 @@
 }
 
 /** @this {google.maps.Polygon} */
-function showArrays(event) {
+function showArrays(event) 
+{
   // Since this polygon has only one path, we can call getPath() to return the
   // MVCArray of LatLngs.
  // var vertices = this.getPath();
@@ -101,6 +105,7 @@ function showArrays(event) {
   infoWindow.setPosition(event.latLng);
 
   infoWindow.open(map);
+
 }
 
         
