@@ -80,52 +80,32 @@ function showArrays(event)
 	if (this.readyState == 4 && this.status == 200) {
 		responseDetails = JSON.parse(this.response)
 		console.log('inn true :', responseDetails)
-<<<<<<< HEAD
-		contentString = '<b>Employees Details</b><br>' +
-		'Clicked location: <br>' + event.latLng.lat() + ',' + event.latLng.lng() +
-		'<br>' + 'User Name :' + responseDetails.data.name;
-=======
 
 		contentString = '<b>Employees Details</b><br>' +
 		'Clicked location: <br>' + event.latLng.lat() + ',' + event.latLng.lng() +
 		'<br>' + 'User Name :' + responseDetails.data.name;
 
->>>>>>> 61d2025f0618f52f0c8e1f1946d4684cf908a42c
 		infoWindow.setContent(contentString);
 		infoWindow.setPosition(event.latLng);
 	} else if (this.readyState == 4)	{
 		console.log('inn false :', JSON.parse(this.response))
 		responseDetails = JSON.parse(this.response)
-<<<<<<< HEAD
-		contentString = '<b>Employees Details</b><br>' +
-		'Clicked location: <br>' + event.latLng.lat() + ',' + event.latLng.lng() +
-		'<br>' + 'User details not found';
-=======
 
 		contentString = '<b>Employees Details</b><br>' +
 		'Clicked location: <br>' + event.latLng.lat() + ',' + event.latLng.lng() +
 		'<br>' + 'User details not found';
 
->>>>>>> 61d2025f0618f52f0c8e1f1946d4684cf908a42c
 		infoWindow.setContent(contentString);
 		infoWindow.setPosition(event.latLng);
 	}
 	};
 	xhttp.open("GET", `http://localhost:1111/Controllers/get-details?lat=${event.latLng.lat()}&long=${event.latLng.lng()}`, true);
 	xhttp.send();
-<<<<<<< HEAD
-=======
-
->>>>>>> 61d2025f0618f52f0c8e1f1946d4684cf908a42c
  
 	
   
   // Replace the info window's content and position.
   
-<<<<<<< HEAD
-=======
-
->>>>>>> 61d2025f0618f52f0c8e1f1946d4684cf908a42c
   infoWindow.open(map);
 }
         
