@@ -7,7 +7,7 @@ mongoose.connect("mongodb://localhost:27017/Gmaps", {useNewUrlParser: true},(err
         console.log("Error");
     }
 })
-
+mongoose.set('debug', true)
 const emp = require("./models/product-model")
 const express = require("express")
 const application = express();
