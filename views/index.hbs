@@ -3,49 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <title>G - Map</title>
-    <script type="text/javascript">
-        // This example creates a simple polygon representing the Bermuda Triangle.
-
-
-        var map;
-        var infoWindow;
-
-    function initMap() {
-                            map = new google.maps.Map(document.getElementById('map'), 
-                        {
-                            zoom: 5,
-                            center: {lat: 41.294, lng: -85.605},
-                            mapTypeId: 'terrain'
-
-                        });
-                        
-
-    var features = [
+	<script type="text/javascript">
+	    // This example creates a simple polygon representing the Bermuda Triangle.
+		var map;
+		var infoWindow;
+	function initMap() {
+							map = new google.maps.Map(document.getElementById('map'), 
+						{
+							zoom: 5,
+							center: {lat: 41.294, lng: -85.605},
+							mapTypeId: 'terrain'
+						});
+						
+ 	var features = [
                      {
                          position: new google.maps.LatLng(43.60449855343088,-79.51914886626844),
                          type: 'info',
-
                      },
                      {
                          position: new google.maps.LatLng(53.71180050940428, -9.56584076079969),
                          type: 'info',
-
                      }
-                    ];
-
-    var icons = {
-                    info: {
-                            icon: 'Images/man.png',
-                          }
-            };
-
-            for (var i = 0; i < features.length; i++) {
-                var marker = new google.maps.Marker({
-                    position: features[i].position,
+               		];
+	var icons = {
+					info: {
+							icon: 'Images/man.png',
+						  }
+	        };
+			for (var i = 0; i < features.length; i++) {
+	            var marker = new google.maps.Marker({
+	                position: features[i].position,
                        icon: icons[features[i].type].icon,
-                    map: map
-             });
-
+	                map: map
+	         });
                 var infowindow = new google.maps.InfoWindow()
                 var content = "kuku";
                 google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){
@@ -54,70 +44,66 @@
                                     infowindow.open(map,marker);
                                 };
                 })(marker,content,infowindow));
-            };
-
-
-
-            // Define the LatLng coordinates for the polygon.
-            var triangleCoords = [
-                {lat: 41.886, lng: -87.582},
-                {lat: 41.755, lng: -83.232},
-                {lat: 39.758, lng: -86.176}
-            ];
-
-            // Construct the polygon.
-            var bermudaTriangle = new google.maps.Polygon({
-                paths: triangleCoords,
-                strokeColor: '#FF0000',
-                strokeOpacity: 0.8,
-                strokeWeight: 3,
-                fillColor: '#FF0000',
-                fillOpacity: 0.35,
-                draggable: true,
-                geodesic: true
-
-
-              });
+	        };
+			// Define the LatLng coordinates for the polygon.
+			var triangleCoords = [
+				{lat: 41.886, lng: -87.582},
+				{lat: 41.755, lng: -83.232},
+				{lat: 39.758, lng: -86.176}
+			];
+			// Construct the polygon.
+			var bermudaTriangle = new google.maps.Polygon({
+				paths: triangleCoords,
+				strokeColor: '#FF0000',
+				strokeOpacity: 0.8,
+				strokeWeight: 3,
+				fillColor: '#FF0000',
+				fillOpacity: 0.35,
+				draggable: true,
+				geodesic: true
+			  });
   bermudaTriangle.setMap(map);
-
   // Add a listener for the click event.
   bermudaTriangle.addListener('click', showArrays);
-
   infoWindow = new google.maps.InfoWindow;
 }
-
 /** @this {google.maps.Polygon} */
 function showArrays(event) 
 {
   // Since this polygon has only one path, we can call getPath() to return the
   // MVCArray of LatLngs.
  // var vertices = this.getPath();
-    
-
+ 	
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+	if (this.readyState == 4 && this.status == 200) {
+		console.log('inn true :', JSON.parse(this.response))
+	} else {
+		console.log('inn false :', JSON.parse(this.response))
+	}
+	};
+	xhttp.open("GET", `http://localhost:1111/Controllers/get-details?lat=${event.latLng.lat()}&long=${event.latLng.lng()}`, true);
+	xhttp.send();
   var contentString = '<b>Employees Details</b><br>' +
       'Clicked location: <br>' + event.latLng.lat() + ',' + event.latLng.lng() +
       '<br>';
-    
+	
   
-
   // Replace the info window's content and position.
   infoWindow.setContent(contentString);
   infoWindow.setPosition(event.latLng);
-
   infoWindow.open(map);
-
 }
-
         
-    </script>
-    <style type="text/css">
-        body{height:100vh;width:100vw;}
-        #map{height:100%;width:80%;}
-    </style>
+	</script>
+	<style type="text/css">
+		body{height:100vh;width:100vw;}
+		#map{height:100%;width:80%;}
+	</style>
 </head>
 <body>
-    <div id="map"></div>
+	<div id="map"></div>
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBoRszf_8fSb3PBBj3Q8uztW2fJiacgVQ&callback=initMap"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBoRszf_8fSb3PBBj3Q8uztW2fJiacgVQ&callback=initMap"></script>
 </body>
 </html>

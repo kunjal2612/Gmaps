@@ -6,8 +6,8 @@ let model = new Schema({
     long: {type: String, required: true},
     empTarget: {type: Number, required: true},
     empTarAch: {type: Number, required: true},
-    contactNo: {type: Number, required: true, max:10}
-
+    contactNo: {type: Number, required: true, max:10},
+    salesRatio: {type: Number, required: true }
 });
 
 
