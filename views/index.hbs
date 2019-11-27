@@ -1,88 +1,123 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-    <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>
-    <style>
-      html, body, #map_canvas {
-        height: 100%;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-
-    <script type='text/javascript'>
-      var mapCanvas;
-
-      function initalize() {
-
-        // Creating a map
-        var mapDiv = document.getElementById("map_canvas");
-        mapCanvas = new google.maps.Map(mapDiv, {
-          mapTypeId : google.maps.MapTypeId.ROADMAP
-        });
-
-        // Generate bunch of path data
-        var sw = new google.maps.LatLng(-19.448292, -152.012329);
-        var ne = new google.maps.LatLng(76.150236, 58.925171);
-        var bounds = new google.maps.LatLngBounds(sw, ne);
-        mapCanvas.setCenter(bounds.getCenter());
-        mapCanvas.setZoom(3);
-
-        var baseLat, baseLng, category, json = [], path;
-        for (var i = 0; i < 100; i++) {
-          baseLat = Math.random() * (ne.lat() - sw.lat()) + sw.lat();
-          baseLng = Math.random() * (ne.lng() - sw.lng()) + sw.lng();
-
-          path = [
-            new google.maps.LatLng(baseLat, baseLng),
-            new google.maps.LatLng(baseLat + 1, baseLng + 1),
-            new google.maps.LatLng(baseLat, baseLng + 2)
-          ];
-          json.push(path);
-        }
-
-        var bounds, polyList = [];
-        for (var i = 0, length = json.length; i < length; i++) {
-          var polyline = createPolygon(json[i]);
-          polyList.push(polyline);
-        }
-        var clusterer = new MarkerClusterer(mapCanvas, polyList);
-      }
-
-      function createPolygon(path) {
-        var polygon = new google.maps.Polygon({
-          path : path,
-          strokeOpacity : 1,
-          strokeColor : "red"
-        });
-
-        var lastPath = null,
-            lastCenter = null;
-        polygon.getPosition = function() {
-          var path = this.getPath();
-          if (lastPath == path) {
-            return lastCenter;
-          }
-          lastPath = path;
-          var bounds = new google.maps.LatLngBounds();
-          path.forEach(function(latlng, i) {
-            bounds.extend(latlng);
-          });
-
-          lastCenter = bounds.getCenter()
-          return lastCenter;
-        };
-        return polygon;
-      }
+<head>
+<meta charset="UTF-8">
+<title>G - Map</title>
+    <script type="text/javascript">
+        // This example creates a simple polygon representing the Bermuda Triangle.
 
 
-      google.maps.event.addDomListener(window, "load", initalize);
+        var map;
+        var infoWindow;
+
+    function initMap() {
+                            map = new google.maps.Map(document.getElementById('map'), 
+                        {
+                            zoom: 5,
+                            center: {lat: 41.294, lng: -85.605},
+                            mapTypeId: 'terrain'
+
+                        });
+                        
+
+    var features = [
+                     {
+                         position: new google.maps.LatLng(43.60449855343088,-79.51914886626844),
+                         type: 'info',
+
+                     },
+                     {
+                         position: new google.maps.LatLng(53.71180050940428, -9.56584076079969),
+                         type: 'info',
+
+                     }
+                    ];
+
+    var icons = {
+                    info: {
+                            icon: 'Images/man.png',
+                          }
+            };
+
+            for (var i = 0; i < features.length; i++) {
+                var marker = new google.maps.Marker({
+                    position: features[i].position,
+                       icon: icons[features[i].type].icon,
+                    map: map
+             });
+
+                var infowindow = new google.maps.InfoWindow()
+                var content = "kuku";
+                google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){
+                return function() {
+                                    infowindow.setContent(content);
+                                    infowindow.open(map,marker);
+                                };
+                })(marker,content,infowindow));
+            };
+
+
+
+            // Define the LatLng coordinates for the polygon.
+            var triangleCoords = [
+                {lat: 41.886, lng: -87.582},
+                {lat: 41.755, lng: -83.232},
+                {lat: 39.758, lng: -86.176}
+            ];
+
+            // Construct the polygon.
+            var bermudaTriangle = new google.maps.Polygon({
+                paths: triangleCoords,
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 3,
+                fillColor: '#FF0000',
+                fillOpacity: 0.35,
+                draggable: true,
+                geodesic: true
+
+
+              });
+  bermudaTriangle.setMap(map);
+
+  // Add a listener for the click event.
+  bermudaTriangle.addListener('click', showArrays);
+
+  infoWindow = new google.maps.InfoWindow;
+}
+
+/** @this {google.maps.Polygon} */
+function showArrays(event) 
+{
+  // Since this polygon has only one path, we can call getPath() to return the
+  // MVCArray of LatLngs.
+ // var vertices = this.getPath();
+    
+
+  var contentString = '<b>Employees Details</b><br>' +
+      'Clicked location: <br>' + event.latLng.lat() + ',' + event.latLng.lng() +
+      '<br>';
+    
+  
+
+  // Replace the info window's content and position.
+  infoWindow.setContent(contentString);
+  infoWindow.setPosition(event.latLng);
+
+  infoWindow.open(map);
+
+}
+
+        
     </script>
-  </head>
-  <body>
-    <div id="map_canvas"></div>
-  </body>
+    <style type="text/css">
+        body{height:100vh;width:100vw;}
+        #map{height:100%;width:80%;}
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBoRszf_8fSb3PBBj3Q8uztW2fJiacgVQ&callback=initMap"></script>
+</body>
 </html>
