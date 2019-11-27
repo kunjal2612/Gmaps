@@ -3,33 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <title>G - Map</title>
-	<script type="text/javascript">
-	    // This example creates a simple polygon representing the Bermuda Triangle.
+    <script type="text/javascript">
+        // This example creates a simple polygon representing the Bermuda Triangle.
 
-	    function initMap() {
-	        var map = new google.maps.Map(document.getElementById('map'), {
-	            zoom: 5,
-	            center: { lat: 43.688965237075685, lng: -79.30903534087781 },
-	            mapTypeId: 'terrain'
-	        });
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 5,
+                center: { lat: 43.688965237075685, lng: -79.30903534087781 },
+                mapTypeId: 'terrain'
+            });
 
-			google.maps.event.addListener(map, 'click', function( event ){
-				console.log("{ lat:"+event.latLng.lat()+", lng:"+event.latLng.lng()+"},");
-			});
+            google.maps.event.addListener(map, 'click', function( event ){
+                console.log("{ lat:"+event.latLng.lat()+", lng:"+event.latLng.lng()+"},");
+            });
 
-	        var icons = {
-	            parking: {
-	                icon: 'Images/man.png'
-	            },
-	            library: {
-	                icon: 'Images/library_maps.png'
-	            },
-	            info: {
-	                icon: 'Images/man.png',
+            var icons = {
+                parking: {
+                    icon: 'Images/man.png'
+                },
+                library: {
+                    icon: 'Images/library_maps.png's
+                },
+                info: {
+                    icon: 'Images/man.png',
                 }
-	        };
+            };
 
-	        var features = [
+            var features = [
                      {
                          position: new google.maps.LatLng(24.886,-70.268),
                          type: 'info',
@@ -46,13 +46,13 @@
                      }
                ];
 
-	        // Create markers.
-	        for (var i = 0; i < features.length; i++) {
-	            var marker = new google.maps.Marker({
-	                position: features[i].position,
+            // Create markers.
+            for (var i = 0; i < features.length; i++) {
+                var marker = new google.maps.Marker({
+                    position: features[i].position,
                        icon: icons[features[i].type].icon,
-	                map: map
-	         });
+                    map: map
+             });
 
                 var infowindow = new google.maps.InfoWindow()
                 var content="Abhishek Pujara"+i;
@@ -62,40 +62,40 @@
                                            infowindow.open(map,marker);
                                          };
                 })(marker,content,infowindow));
-	        };
+            };
 
             
 
-	        var coords = [
-						{ lat:43.60449855343088, lng:-79.51914886626844},
-						{ lat:43.617424680945895, lng:-79.50678924712781},
-						{ lat:43.63134201905249, lng:-79.48618988189344},
-						{ lat:43.63730560618814, lng:-79.44361786040906},
-						{ lat:43.641281002161335, lng:-79.35710052642469},
-						{ lat:43.641281002161335, lng:-79.32688812408094},
-						{ lat:43.688965237075685, lng:-79.30903534087781},
-						{ lat:43.70981517881015, lng:-79.32139496001844},
-						{ lat:43.74256472381744, lng:-79.37495330962781},
-						{ lat:43.7544692099884, lng:-79.43675140533094},
-						{ lat:43.748517262861206, lng:-79.56034759673719},
-						{ lat:43.71180050940428, lng:-79.56584076079969},
-						{ lat:43.66314097832178, lng:-79.56172088775281},
-						{ lat:43.646249877242916, lng:-79.53288177642469},
-					];
+            var coords = [
+                        { lat:43.60449855343088, lng:-79.51914886626844},
+                        { lat:43.617424680945895, lng:-79.50678924712781},
+                        { lat:43.63134201905249, lng:-79.48618988189344},
+                        { lat:43.63730560618814, lng:-79.44361786040906},
+                        { lat:43.641281002161335, lng:-79.35710052642469},
+                        { lat:43.641281002161335, lng:-79.32688812408094},
+                        { lat:43.688965237075685, lng:-79.30903534087781},
+                        { lat:43.70981517881015, lng:-79.32139496001844},
+                        { lat:43.74256472381744, lng:-79.37495330962781},
+                        { lat:43.7544692099884, lng:-79.43675140533094},
+                        { lat:43.748517262861206, lng:-79.56034759673719},
+                        { lat:43.71180050940428, lng:-79.56584076079969},
+                        { lat:43.66314097832178, lng:-79.56172088775281},
+                        { lat:43.646249877242916, lng:-79.53288177642469},
+                    ];
 
-	        var editablePolygon = new google.maps.Polygon({
-	            paths: coords,
-	            strokeColor: '#FF0000',
-	            strokeOpacity: 0.8,
-	            strokeWeight: 2,
-	            fillColor: '#FF0000',
-	            fillOpacity: 0.35,
-	            editable: true,
-	            draggable: true,
-	            geodesic: true
-	        });
+            var editablePolygon = new google.maps.Polygon({
+                paths: coords,
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                fillOpacity: 0.35,
+                editable: true,
+                draggable: true,
+                geodesic: true
+            });
 
-	        editablePolygon.setMap(map);
+            editablePolygon.setMap(map);
         }
 
         function butClick(){
@@ -133,15 +133,15 @@
             }
         }
 
-	</script>
+    </script>
 
-	<style type="text/css">
-		body{height:100vh;width:100vw;}
-		#map{height:100%;width:80%;}
-	</style>
+    <style type="text/css">
+        body{height:100vh;width:100vw;}
+        #map{height:100%;width:80%;}
+    </style>
 </head>
 <body>
-	<div id="map"></div>
+    <div id="map"></div>
     <table id="dataTable">
         <tr>
             <th>Name</th>
@@ -163,21 +163,7 @@
             <input type="text" value="{{this.empTarAch}}" id="empTarAch"/>
             <input type="text" value="{{this.contactNo}}" id="contactNo"/>
             <input type="text" value="{{this.salesRatio}}" id="salesRatio"/>
-            {{!-- <script>
-            function divideBy() 
-                { 
-                    num1 = document.getElementById("empTarAch").value;
-                    num2 = document.getElementById("empTarget").value;
-                    document.getElementById("salesRatio").innerHTML = num1 / num2;
-                }
-            </script> --}}
-
-            {{!-- var e1 = {{this.empTarget}};
-            var e2 = {{this.empTarAch}};
-            var e3 = parseInt(e1);
-            vae e4 = parseInt(e2);
-            var e5 = e4/e3;
-            console.log(e5); --}}
+            
             
             <tr>
                 <td>{{this.name}}</td>
@@ -187,11 +173,6 @@
                 <td>{{this.empTarAch}}</td>
                 <td>{{this.contactNo}}</td>
                 <td>{{divide this.empTarget this.empTarAch}}</td>
-
-                
-                {{!-- <td>{{this.empTarget}}/{{this.empTarAch}}</td> --}}
-                <td></td>
-               
             </tr>
         
         {{/each}}
@@ -199,7 +180,7 @@
         
     </table>
     <input type="button" value="load markers" onclick="butClick()"/>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBoRszf_8fSb3PBBj3Q8uztW2fJiacgVQ&callback=initMap"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBoRszf_8fSb3PBBj3Q8uztW2fJiacgVQ&callback=initMap"></script>
                 
 
 </body>
