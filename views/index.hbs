@@ -93,6 +93,16 @@ function showArrays(event)
   // MVCArray of LatLngs.
  // var vertices = this.getPath();
  	
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+	if (this.readyState == 4 && this.status == 200) {
+		console.log('inn true :', JSON.parse(this.response))
+	} else {
+		console.log('inn false :', JSON.parse(this.response))
+	}
+	};
+	xhttp.open("GET", `http://localhost:1111/Controllers/get-details?lat=${event.latLng.lat()}&long=${event.latLng.lng()}`, true);
+	xhttp.send();
 
   var contentString = '<b>Employees Details</b><br>' +
       'Clicked location: <br>' + event.latLng.lat() + ',' + event.latLng.lng() +

@@ -8,7 +8,6 @@ let model = new Schema({
     empTarAch: {type: Number, required: true},
     contactNo: {type: Number, required: true, max:10},
     salesRatio: {type: Number, required: true }
-
 });
 
 
