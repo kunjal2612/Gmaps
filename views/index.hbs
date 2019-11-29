@@ -98,8 +98,19 @@ function showArrays(event)
 		infoWindow.setContent(contentString);
 		infoWindow.setPosition(event.latLng);
 	}
+	else
+	{
+		console.log(this.readyState);
+		console.log(this.status);
+		contentString = '<b>Employees Details</b><br>' +
+		'Clicked location: <br>' + event.latLng.lat() + ',' + event.latLng.lng() +
+		'<br>' + 'User details not found';
+
+		infoWindow.setContent(contentString);
+		infoWindow.setPosition(event.latLng);
+	}
 	};
-	xhttp.open("GET", `http://localhost:1111/Controllers/get-details?lat=${event.latLng.lat()}&long=${event.latLng.lng()}`, true);
+	xhttp.open("GET", `http://localhost:1111/Controllers/get-details?lat="${event.latLng.lat()}"&long=${event.latLng.lng()}`, true);
 	xhttp.send();
  
 	
