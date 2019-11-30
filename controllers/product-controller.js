@@ -18,6 +18,22 @@ router.get("/list", (req, res) => {
     });
 })
 
+router.get("/ttee", (req, res) => {
+    empMod.aggregate([
+        {
+            $project: {
+                _id: 0,
+                lat: 1,
+                long: 1
+            }
+        }
+    ]).then(data => {
+        res.render("list", { locations: data })
+    }).catch(err => {
+        console.log(err)
+    })
+})
+
 router.get("/get-details", (req, res) => {
     console.log('qq :', req.query)
     empMod.findOne({ lat: req.query.lat, long: req.query.long }).then(data => {
