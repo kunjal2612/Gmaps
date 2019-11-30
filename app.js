@@ -1,5 +1,4 @@
 const mongoose = require("mongoose")
-const empMod = mongoose.model("employees")
 
 mongoose.connect("mongodb://localhost:27017/Gmaps", { useNewUrlParser: true }, (error) => {
     if (!error) {
@@ -8,6 +7,7 @@ mongoose.connect("mongodb://localhost:27017/Gmaps", { useNewUrlParser: true }, (
         console.log("Error");
     }
 })
+
 mongoose.set('debug', true)
 const emp = require("./models/product-model")
 const express = require("express")
@@ -39,19 +39,7 @@ application.get("/", (req, res) => {
 });
 
 application.get("/list-employees", (req, res) => {
-    empMod.aggregate([
-        {
-            $project: {
-                _id: 0,
-                lat: 1,
-                long: 1
-            }
-        }
-    ]).then(data => {
-        res.render("list", { locations: data })
-    }).catch(err => {
-        console.log(err)
-    })
+    res.render("list", {})
 });
 
 application.use("/Controllers", empCont)

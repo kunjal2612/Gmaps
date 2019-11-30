@@ -18,24 +18,15 @@ router.get("/list", (req, res) => {
     });
 })
 
-router.get("/ttee", (req, res) => {
-    empMod.aggregate([
-        {
-            $project: {
-                _id: 0,
-                lat: 1,
-                long: 1
-            }
-        }
-    ]).then(data => {
-        res.render("list", { locations: data })
+router.get("/employee-list", (req, res) => {
+    empMod.find({}).then(data => {
+        res.jsonp({ message: "Success", data })
     }).catch(err => {
         console.log(err)
     })
 })
 
 router.get("/get-details", (req, res) => {
-    console.log('qq :', req.query)
     empMod.findOne({ lat: req.query.lat, long: req.query.long }).then(data => {
         if (!data) return res.status(404).jsonp({ message: 'Details not found.' })
         return res.status(200).jsonp({ message: 'Details get successfully.', data })
